@@ -150,16 +150,20 @@ function parseSetCookies(res, jar) {
   }
 }
 async function upstream(url, { method = 'GET', jar, body, referer } = {}) {
-  const headers = { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml', 'Accept-Language': 'en-US,en;q=0.9,bn;q=0.8' };
-  if (jar && Object.keys(jar).length) headers.Cookie = Object.entries(jar).map(([k, v]) => `${k}=${v}`).join('; ');
-  if (referer) headers.Referer = referer;
-  if (body) { headers['Content-Type'] = 'application/x-www-form-urlencoded'; headers.Origin = new URL(OFFICIAL_BASE).origin; }
-  const res = await fetch(url, { method, headers, body, redirect: 'follow', signal: AbortSignal.timeout(20000) });
-  if (jar) parseSetCookies(res, jar);
-  const text = (await res.text()).slice(0, 2_000_000);
-  return { status: res.status, text };
+    const headers = { 
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8', 
+        'Accept-Language': 'en-US,en;q=0.9,bn;q=0.8',
+        'Referer': 'http://www.educationboardresults.gov.bd/'
+    };
+    if (jar && Object.keys(jar).length) headers.Cookie = Object.entries(jar).map(([k, v]) => `${k}=${v}`).join('; ');
+    if (referer) headers.Referer = referer;
+    if (body) { headers['Content-Type'] = 'application/x-www-form-urlencoded'; headers.Origin = new URL(OFFICIAL_BASE).origin; }
+    const res = await fetch(url, { method, headers, body, redirect: 'follow', signal: AbortSignal.timeout(20000) });
+    if (jar) parseSetCookies(res, jar);
+    const text = (await res.text()).slice(0, 2_000_000);
+    return { status: res.status, text };
 }
-
 /* ---------------------------------------------------------------- sessions */
 const sessions = new Map();
 const SESSION_TTL = 5 * 60 * 1000;
