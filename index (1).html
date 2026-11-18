@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CheckYourResults BD – SSC &amp; HSC Result Bangladesh</title>
+<meta name="description" content="Check your SSC, Dakhil, HSC and Alim results in Bangladesh using your roll number, registration number and board. Fast, free and mobile friendly.">
+<meta name="theme-color" content="#2a1062">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#f6f3ff; --muted:#d3c7fb; --lilac:#c4b5fd; --violet:#8b5cf6; --fuchsia:#d946ef;
+  --deep:#1b0a45; --mid:#3a1a7c;
+  --line:rgba(255,255,255,.28);
+  --radius:28px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh; color:var(--ink);
+  font-family:'Poppins','Hind Siliguri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  background:
+    radial-gradient(900px 600px at 12% -10%, rgba(167,139,250,.55), transparent 60%),
+    radial-gradient(800px 600px at 105% 20%, rgba(217,70,239,.35), transparent 60%),
+    linear-gradient(165deg, var(--deep) 0%, var(--mid) 55%, #5b21b6 100%);
+  background-attachment:fixed;
+  overflow-x:hidden;
+}
+em{font-family:'Hind Siliguri','Poppins',sans-serif;font-style:normal}
+
+/* ---------- water scene ---------- */
+.scene{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 22s ease-in-out infinite alternate}
+.orb.a{width:46vmax;height:46vmax;left:-14vmax;top:-12vmax;background:radial-gradient(circle,#a78bfa,transparent 65%)}
+.orb.b{width:38vmax;height:38vmax;right:-12vmax;top:22vh;background:radial-gradient(circle,#e879f9,transparent 65%);animation-duration:28s}
+.orb.c{width:34vmax;height:34vmax;left:20vw;bottom:-16vmax;background:radial-gradient(circle,#7c3aed,transparent 65%);animation-duration:25s}
+@keyframes drift{to{transform:translate3d(6vmax,4vmax,0) scale(1.12)}}
+
+.wave{position:absolute;left:0;right:0;bottom:0;background-repeat:repeat-x;animation:flow linear infinite}
+.wave.w1{height:26vh;opacity:.55;animation-duration:26s;background-size:1440px 100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='rgba(196,181,253,0.30)' d='M0,160 C180,100 360,220 540,160 S900,100 1080,160 S1260,220 1440,160 L1440,320 L0,320Z'/%3E%3C/svg%3E")}
+.wave.w2{height:20vh;opacity:.7;animation-duration:18s;animation-direction:reverse;background-size:1440px 100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='rgba(139,92,246,0.35)' d='M0,160 C180,100 360,220 540,160 S900,100 1080,160 S1260,220 1440,160 L1440,320 L0,320Z'/%3E%3C/svg%3E")}
+.wave.w3{height:14vh;opacity:.9;animation-duration:12s;background-size:1440px 100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='rgba(76,29,149,0.55)' d='M0,160 C180,100 360,220 540,160 S900,100 1080,160 S1260,220 1440,160 L1440,320 L0,320Z'/%3E%3C/svg%3E")}
+@keyframes flow{from{background-position-x:0}to{background-position-x:1440px}}
+
+.bubbles i{position:absolute;bottom:-70px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;
+  background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.8),rgba(255,255,255,.14) 38%,rgba(196,181,253,.12) 64%,rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.28);
+  animation:rise var(--d) linear var(--delay) infinite}
+@keyframes rise{to{transform:translate3d(24px,-118vh,0)}}
+
+/* ---------- glass ---------- */
+.glass{
+  position:relative; border-radius:var(--radius); border:1px solid var(--line);
+  background:linear-gradient(140deg,rgba(255,255,255,.20),rgba(255,255,255,.06) 55%,rgba(196,181,253,.10));
+  -webkit-backdrop-filter:blur(22px) saturate(170%); backdrop-filter:blur(22px) saturate(170%);
+  box-shadow:0 24px 70px rgba(18,4,58,.50), inset 0 1.5px 0 rgba(255,255,255,.55), inset 0 -26px 46px rgba(167,139,250,.14);
+  overflow:hidden;
+}
+.glass::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(520px 200px at 14% -8%,rgba(255,255,255,.38),transparent 62%),
+             radial-gradient(380px 160px at 100% 110%,rgba(217,70,239,.20),transparent 70%)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass{background:rgba(70,30,140,.88)}
+}
+
+/* ---------- layout ---------- */
+.wrap{position:relative;z-index:1;width:min(920px,100% - 32px);margin:0 auto;padding:22px 0 80px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 4px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.12rem;letter-spacing:.2px;text-decoration:none;color:var(--ink)}
+.brand svg{width:34px;height:34px;filter:drop-shadow(0 6px 14px rgba(167,139,250,.6))}
+.brand b{color:var(--lilac)}
+.pill-link{font-size:.82rem;color:var(--ink);text-decoration:none;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.08)}
+.pill-link:hover,.pill-link:focus-visible{background:rgba(255,255,255,.18)}
+
+.hero{text-align:center;padding:46px 8px 26px}
+.hero h1{margin:0;font-size:clamp(1.9rem,5.4vw,3.2rem);line-height:1.12;font-weight:700;letter-spacing:-.5px;text-shadow:0 8px 40px rgba(124,58,237,.6)}
+.hero h1 span{background:linear-gradient(90deg,#e9d5ff,#c4b5fd 45%,#f0abfc);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:14px auto 0;max-width:560px;color:var(--muted);font-size:1.02rem;line-height:1.55}
+
+.card{padding:26px}
+.tabs{display:flex;gap:6px;padding:6px;border-radius:20px;background:rgba(20,6,60,.30);border:1px solid rgba(255,255,255,.16);margin-bottom:22px}
+.tabs button{flex:1;appearance:none;border:0;cursor:pointer;color:var(--muted);font:inherit;font-weight:600;font-size:.98rem;padding:12px 10px;border-radius:15px;background:transparent;transition:.25s}
+.tabs button small{display:block;font-weight:400;font-size:.74rem;opacity:.85;margin-top:2px}
+.tabs button[aria-selected="true"]{color:#fff;background:linear-gradient(145deg,rgba(255,255,255,.30),rgba(167,139,250,.28));box-shadow:0 8px 24px rgba(91,33,182,.55), inset 0 1px 0 rgba(255,255,255,.6)}
+.tabs button:focus-visible{outline:2px solid var(--lilac);outline-offset:2px}
+
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}.span2{grid-column:span 2}}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field>span{font-size:.84rem;font-weight:500;color:var(--muted)}
+.field>span em{opacity:.85;margin-left:4px}
+input,select{
+  width:100%;font:inherit;color:var(--ink);font-size:1rem;padding:14px 16px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.09);
+  box-shadow:inset 0 2px 10px rgba(20,6,60,.28);outline:none;transition:border-color .2s, box-shadow .2s, background .2s;
+}
+input::placeholder{color:rgba(223,214,255,.55)}
+input:focus,select:focus{border-color:var(--lilac);background:rgba(255,255,255,.14);box-shadow:0 0 0 4px rgba(167,139,250,.28), inset 0 2px 10px rgba(20,6,60,.2)}
+select{appearance:none;-webkit-appearance:none;padding-right:44px;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e9d5ff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center}
+select option{color:#1b0a45;background:#f3edff}
+
+.captcha-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.q{min-width:112px;text-align:center;font-weight:700;font-size:1.15rem;letter-spacing:1px;padding:13px 16px;border-radius:16px;
+  background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(167,139,250,.18));border:1px solid rgba(255,255,255,.34);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.icon-btn{appearance:none;cursor:pointer;width:50px;height:50px;border-radius:16px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.10);color:var(--ink);display:grid;place-items:center;transition:.2s}
+.icon-btn:hover,.icon-btn:focus-visible{background:rgba(255,255,255,.22);outline:none}
+.icon-btn svg{width:20px;height:20px}
+.icon-btn.spin svg{animation:spin .7s linear}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.go{
+  position:relative;overflow:hidden;appearance:none;border:0;cursor:pointer;width:100%;margin-top:22px;
+  font:inherit;font-weight:700;font-size:1.06rem;color:#fff;padding:16px 20px;border-radius:18px;
+  background:linear-gradient(135deg,#7c3aed,#a855f7 55%,#d946ef);
+  box-shadow:0 16px 38px rgba(124,58,237,.55), inset 0 1.5px 0 rgba(255,255,255,.55), inset 0 -10px 20px rgba(76,29,149,.35);
+  transition:transform .15s, filter .2s;
+}
+.go:hover{filter:brightness(1.08)}.go:active{transform:translateY(1px) scale(.995)}
+.go:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.go[disabled]{cursor:progress;filter:saturate(.7) brightness(.9)}
+.go .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:ripple .7s ease-out forwards;pointer-events:none}
+@keyframes ripple{to{transform:scale(3.2);opacity:0}}
+.go .bn{font-family:'Hind Siliguri',sans-serif;font-weight:500;opacity:.9;margin-left:6px}
+
+.status{margin-top:18px;padding:14px 16px;border-radius:16px;font-size:.95rem;line-height:1.5;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.10)}
+.status.err{border-color:rgba(251,146,160,.65);background:rgba(190,24,93,.22)}
+.status a{color:#fff;font-weight:600}
+.status .alt{display:inline-block;margin-top:10px;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);text-decoration:none}
+
+/* ---------- result ---------- */
+.result{margin-top:26px;padding:26px;animation:pop .6s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.97)}}
+.res-head{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+.res-head h2{margin:0;font-size:1.35rem}
+.res-head p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
+.gpa{display:grid;place-items:center;min-width:132px;padding:14px 22px;border-radius:24px;text-align:center;
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.45),rgba(167,139,250,.28) 60%,rgba(124,58,237,.35));
+  border:1px solid rgba(255,255,255,.5);box-shadow:0 14px 36px rgba(91,33,182,.55), inset 0 1.5px 0 rgba(255,255,255,.7)}
+.gpa small{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#f1e8ff}
+.gpa strong{font-size:2.1rem;line-height:1.1;font-weight:700}
+.info{display:grid;grid-template-columns:1fr;gap:10px;margin:22px 0}
+@media(min-width:620px){.info{grid-template-columns:1fr 1fr}}
+.info div{padding:12px 15px;border-radius:15px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18)}
+.info dt{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.info dd{margin:3px 0 0;font-weight:600;word-break:break-word}
+.table-wrap{overflow-x:auto;border-radius:18px;border:1px solid rgba(255,255,255,.2)}
+table{width:100%;border-collapse:collapse;min-width:420px}
+th,td{padding:12px 16px;text-align:left}
+th{font-size:.76rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);background:rgba(20,6,60,.30)}
+tbody tr:nth-child(even){background:rgba(255,255,255,.05)}
+td.g{font-weight:700}
+td.g.f{color:#fda4af}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{appearance:none;cursor:pointer;font:inherit;font-weight:600;font-size:.92rem;color:var(--ink);padding:11px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.12);text-decoration:none}
+.btn:hover,.btn:focus-visible{background:rgba(255,255,255,.24);outline:none}
+.note{margin:18px 0 0;font-size:.82rem;color:var(--muted);line-height:1.55}
+
+.steps{display:grid;gap:14px;margin-top:34px}
+@media(min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{padding:20px}
+.step b{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);margin-bottom:8px}
+.step h3{margin:0 0 4px;font-size:1rem}.step p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.5}
+
+footer{margin-top:40px;text-align:center;color:var(--muted);font-size:.82rem;line-height:1.7}
+footer a{color:#fff}
+
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+@media print{
+  body{background:#fff!important;color:#000}
+  .scene,header.top,.hero,form,.steps,footer,.actions,.status{display:none!important}
+  .wrap{width:100%;padding:0}
+  .glass{background:#fff!important;box-shadow:none!important;border:1px solid #999!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .glass::before{display:none}
+  .result{margin:0;color:#000}
+  .res-head p,.info dt,th,.note{color:#333!important}
+  .gpa{background:#fff!important;border:1px solid #444!important;box-shadow:none!important;color:#000}
+  .gpa small{color:#333}
+  .info div{background:#fff!important;border:1px solid #bbb!important}
+  th{background:#eee!important}
+  td.g.f{color:#b00020}
+}
+</style>
+</head>
+<body>
+
+<div class="scene" aria-hidden="true">
+  <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+  <div class="bubbles" id="bubbles"></div>
+  <div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/" aria-label="CheckYourResults BD home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0e7ff"/><stop offset=".5" stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><path d="M32 4C22 18 12 28 12 40a20 20 0 0 0 40 0C52 28 42 18 32 4Z" fill="url(#dg)" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/><ellipse cx="24" cy="36" rx="4" ry="8" fill="rgba(255,255,255,.55)" transform="rotate(18 24 36)"/></svg>
+      <span>CheckYourResults<b>BD</b></span>
+    </a>
+    <a class="pill-link" href="https://www.educationboardresults.gov.bd/" target="_blank" rel="noopener noreferrer">Official portal ↗</a>
+  </header>
+
+  <section class="hero">
+    <h1>Check your <span>SSC &amp; HSC</span> result</h1>
+    <p>Enter your roll, registration and board to see your result in seconds.<br><em>রোল, রেজিস্ট্রেশন ও বোর্ড দিয়ে আপনার ফলাফল দেখুন।</em></p>
+  </section>
+
+  <main>
+    <form id="f" class="glass card" novalidate autocomplete="off" aria-label="Result search">
+      <div class="tabs" role="tablist" aria-label="Exam level">
+        <button type="button" role="tab" id="tab-ssc" aria-selected="true" data-level="ssc">SSC<small>Dakhil · <em>এসএসসি</em></small></button>
+        <button type="button" role="tab" id="tab-hsc" aria-selected="false" data-level="hsc">HSC<small>Alim · <em>এইচএসসি</em></small></button>
+      </div>
+
+      <div class="grid">
+        <label class="field span2"><span>Examination <em>পরীক্ষা</em></span><select id="exam" required></select></label>
+        <label class="field"><span>Year <em>সাল</em></span><select id="year" required></select></label>
+        <label class="field"><span>Board <em>বোর্ড</em></span><select id="board" required></select></label>
+        <label class="field"><span>Roll <em>রোল</em></span><input id="roll" inputmode="numeric" pattern="[0-9]*" maxlength="10" placeholder="Your roll number" required></label>
+        <label class="field"><span>Registration <em>রেজিস্ট্রেশন</em></span><input id="reg" inputmode="numeric" pattern="[0-9]*" maxlength="12" placeholder="Your registration number" required></label>
+
+        <div class="field span2">
+          <span id="cap-label">Security question <em>নিরাপত্তা প্রশ্ন</em></span>
+          <div class="captcha-row">
+            <div class="q" id="capQ" aria-live="polite">…</div>
+            <input id="capA" inputmode="numeric" maxlength="3" placeholder="Answer" aria-labelledby="cap-label" required>
+            <button type="button" class="icon-btn" id="capR" aria-label="New security question">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 4v5h-5"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button class="go" id="go" type="submit">View Result<span class="bn">ফলাফল দেখুন</span></button>
+      <div id="status" class="status" role="alert" hidden></div>
+    </form>
+
+    <section id="result" class="glass result" hidden aria-live="polite" aria-label="Your result"></section>
+
+    <section class="steps" aria-label="How it works">
+      <div class="glass step"><b>1</b><h3>Choose exam</h3><p>Pick SSC or HSC, the year and your education board (Madrasah for Dakhil / Alim).</p></div>
+      <div class="glass step"><b>2</b><h3>Enter numbers</h3><p>Type your roll and registration number exactly as printed on your admit card.</p></div>
+      <div class="glass step"><b>3</b><h3>Get your result</h3><p>Solve the small maths question and press View Result. You can print it too.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>checkyourresultsbd.com is an independent service and is not affiliated with any government body or education board.<br>
+    Results are fetched live from the official board system. For admission or legal use, always confirm on the
+    <a href="https://www.educationboardresults.gov.bd/" target="_blank" rel="noopener noreferrer">official portal</a>.<br>
+    We do not store your roll or registration number.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  const OFFICIAL = 'https://www.educationboardresults.gov.bd/';
+
+  const EXAMS = {
+    ssc: [['ssc', 'SSC / Dakhil / Equivalent'], ['ssc_voc', 'SSC (Vocational)']],
+    hsc: [['hsc', 'HSC / Alim / Equivalent'], ['hsc_voc', 'HSC (Vocational)']]
+  };
+  const BOARDS = [
+    ['barisal', 'Barisal'], ['chittagong', 'Chittagong'], ['comilla', 'Comilla'], ['dhaka', 'Dhaka'],
+    ['dinajpur', 'Dinajpur'], ['jessore', 'Jessore'], ['mymensingh', 'Mymensingh'], ['rajshahi', 'Rajshahi'],
+    ['sylhet', 'Sylhet'], ['madrasah', 'Madrasah (Dakhil / Alim)'], ['tec', 'Technical'], ['dibs', 'DIBS (Dhaka)']
+  ];
+
+  const form = $('#f'), examEl = $('#exam'), yearEl = $('#year'), boardEl = $('#board');
+  const rollEl = $('#roll'), regEl = $('#reg'), capQ = $('#capQ'), capA = $('#capA'), capR = $('#capR');
+  const goBtn = $('#go'), statusEl = $('#status'), resultEl = $('#result');
+  let level = 'ssc', token = null, busy = false;
+
+  /* ---------- water bubbles ---------- */
+  const bub = $('#bubbles');
+  for (let i = 0; i < 16; i++) {
+    const b = document.createElement('i');
+    b.style.cssText = `--s:${(8 + Math.random() * 34).toFixed(0)}px;--x:${(Math.random() * 100).toFixed(1)}%;--d:${(14 + Math.random() * 20).toFixed(1)}s;--delay:-${(Math.random() * 30).toFixed(1)}s`;
+    bub.appendChild(b);
+  }
+
+  /* ---------- selects ---------- */
+  function fill(sel, rows, selected) {
+    sel.textContent = '';
+    for (const [v, t] of rows) {
+      const o = document.createElement('option');
+      o.value = v; o.textContent = t;
+      if (v === selected) o.selected = true;
+      sel.appendChild(o);
+    }
+  }
+  const thisYear = new Date().getFullYear();
+  const years = [];
+  for (let y = thisYear; y >= 2012; y--) years.push([String(y), String(y)]);
+  fill(yearEl, years, String(thisYear));
+  fill(boardEl, [['', 'Select board']].concat(BOARDS), '');
+  fill(examEl, EXAMS.ssc, 'ssc');
+
+  document.querySelectorAll('.tabs button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      level = btn.dataset.level;
+      document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-selected', String(b === btn)));
+      fill(examEl, EXAMS[level], EXAMS[level][0][0]);
+      clearStatus();
+    });
+  });
+
+  /* digits only */
+  [rollEl, regEl, capA].forEach((el) => el.addEventListener('input', () => { el.value = el.value.replace(/\D+/g, ''); }));
+
+  /* ---------- helpers ---------- */
+  function el(tag, cls, text) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function clearStatus() { statusEl.hidden = true; statusEl.textContent = ''; statusEl.classList.remove('err'); }
+  function showStatus(msg, isErr, offerOfficial) {
+    statusEl.textContent = '';
+    statusEl.classList.toggle('err', !!isErr);
+    statusEl.appendChild(el('span', null, msg));
+    if (offerOfficial) {
+      statusEl.appendChild(document.createElement('br'));
+      const a = el('a', 'alt', 'Open the official portal ↗');
+      a.href = OFFICIAL; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      statusEl.appendChild(a);
+    }
+    statusEl.hidden = false;
+  }
+  function setBusy(v) {
+    busy = v; goBtn.disabled = v;
+    goBtn.firstChild.textContent = v ? 'Fetching your result…' : 'View Result';
+  }
+
+  async function api(url, opt) {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 30000);
+    try {
+      const r = await fetch(url, Object.assign({ headers: { 'Content-Type': 'application/json' }, signal: ctl.signal }, opt || {}));
+      let j = null;
+      try { j = await r.json(); } catch (_) { /* ignore */ }
+      if (!r.ok || !j || j.ok === false) {
+        const e = new Error((j && j.error) || 'Something went wrong. Please try again.');
+        e.code = (j && j.code) || 'ERROR';
+        throw e;
+      }
+      return j;
+    } catch (err) {
+      if (err.name === 'AbortError') { const e = new Error('The request took too long. Please try again.'); e.code = 'TIMEOUT'; throw e; }
+      if (err instanceof TypeError) { const e = new Error('Network problem. Please check your internet connection.'); e.code = 'NETWORK'; throw e; }
+      throw err;
+    } finally { clearTimeout(timer); }
+  }
+
+  /* ---------- captcha ---------- */
+  async function loadCaptcha(quiet) {
+    token = null; capA.value = ''; capQ.textContent = '…';
+    capR.classList.remove('spin'); void capR.offsetWidth; capR.classList.add('spin');
+    try {
+      const r = await api('/api/captcha');
+      token = r.token; capQ.textContent = r.question + ' =';
+    } catch (e) {
+      capQ.textContent = '—';
+      if (!quiet) showStatus(e.message, true, e.code === 'UNAVAILABLE' || e.code === 'NETWORK' || e.code === 'TIMEOUT');
+    }
+  }
+  capR.addEventListener('click', () => loadCaptcha());
+
+  /* ---------- submit ---------- */
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    if (busy) return;
+    clearStatus();
+    const roll = rollEl.value.trim(), reg = regEl.value.trim(), ans = capA.value.trim();
+    if (!boardEl.value) return showStatus('Please select your board.', true);
+    if (!/^\d{3,10}$/.test(roll)) return showStatus('Please enter a valid roll number (digits only).', true);
+    if (!/^\d{4,12}$/.test(reg)) return showStatus('Please enter a valid registration number (digits only).', true);
+    if (!token) { await loadCaptcha(); if (!token) return; return showStatus('Please answer the new security question.', true); }
+    if (!/^\d{1,3}$/.test(ans)) return showStatus('Please answer the security question.', true);
+
+    setBusy(true);
+    resultEl.hidden = true;
+    try {
+      const data = await api('/api/result', {
+        method: 'POST',
+        body: JSON.stringify({ token, exam: examEl.value, year: yearEl.value, board: boardEl.value, roll, reg, answer: ans })
+      });
+      token = null;
+      renderResult(data);
+      loadCaptcha(true);
+    } catch (e) {
+      showStatus(e.message, true, e.code === 'UNAVAILABLE' || e.code === 'NETWORK' || e.code === 'TIMEOUT');
+      loadCaptcha(true);
+    } finally { setBusy(false); }
+  });
+
+  /* ---------- render result (DOM only, no innerHTML) ---------- */
+  function renderResult(d) {
+    resultEl.textContent = '';
+    const info = Array.isArray(d.info) ? d.info : [];
+    const grades = Array.isArray(d.grades) ? d.grades : [];
+    const find = (re) => info.find((i) => re.test(i.label));
+    const nameItem = find(/^(student'?s?\s*)?name$/i);
+    const gpa = d.gpa || '';
+
+    const head = el('div', 'res-head');
+    const left = el('div');
+    left.appendChild(el('h2', null, nameItem ? nameItem.value : 'Your result'));
+    const examLabel = examEl.options[examEl.selectedIndex].textContent;
+    left.appendChild(el('p', null, `${examLabel} · ${yearEl.value} · ${boardEl.options[boardEl.selectedIndex].textContent} board`));
+    head.appendChild(left);
+    if (gpa) {
+      const g = el('div', 'gpa');
+      g.appendChild(el('small', null, 'GPA'));
+      g.appendChild(el('strong', null, gpa));
+      head.appendChild(g);
+    }
+    resultEl.appendChild(head);
+
+    if (info.length) {
+      const dl = el('dl', 'info');
+      for (const i of info) {
+        const box = el('div');
+        box.appendChild(el('dt', null, i.label));
+        box.appendChild(el('dd', null, i.value));
+        dl.appendChild(box);
+      }
+      resultEl.appendChild(dl);
+    }
+
+    if (grades.length) {
+      const wrap = el('div', 'table-wrap');
+      const t = el('table');
+      const thead = el('thead'), hr = el('tr');
+      ['Code', 'Subject', 'Grade'].forEach((h) => hr.appendChild(el('th', null, h)));
+      thead.appendChild(hr); t.appendChild(thead);
+      const tb = el('tbody');
+      for (const g of grades) {
+        const tr = el('tr');
+        tr.appendChild(el('td', null, g.code));
+        tr.appendChild(el('td', null, g.subject));
+        tr.appendChild(el('td', 'g' + (/^f$/i.test(g.grade) ? ' f' : ''), g.grade));
+        tb.appendChild(tr);
+      }
+      t.appendChild(tb); wrap.appendChild(t); resultEl.appendChild(wrap);
+    }
+
+    const actions = el('div', 'actions');
+    const pr = el('button', 'btn', 'Print / Save as PDF'); pr.type = 'button';
+    pr.addEventListener('click', () => window.print());
+    const again = el('button', 'btn', 'Check another result'); again.type = 'button';
+    again.addEventListener('click', () => {
+      resultEl.hidden = true; rollEl.value = ''; regEl.value = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' }); rollEl.focus({ preventScroll: true });
+    });
+    actions.append(pr, again);
+    resultEl.appendChild(actions);
+    resultEl.appendChild(el('p', 'note', 'Shown as received from the official board system at the time of your request. For admission or legal use, confirm on the official portal.'));
+
+    resultEl.hidden = false;
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ---------- button ripple ---------- */
+  goBtn.addEventListener('pointerdown', (e) => {
+    const r = goBtn.getBoundingClientRect(), s = Math.max(r.width, r.height);
+    const rp = document.createElement('span');
+    rp.className = 'ripple';
+    rp.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX - r.left - s / 2}px;top:${e.clientY - r.top - s / 2}px`;
+    goBtn.appendChild(rp);
+    setTimeout(() => rp.remove(), 750);
+  });
+
+  loadCaptcha(true);
+})();
+</script>
+</body>
+</html>

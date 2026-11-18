@@ -1,0 +1,13 @@
+{
+  "name": "checkyourresultsbd",
+  "version": "1.0.0",
+  "description": "SSC & HSC result checker for Bangladesh – checkyourresultsbd.com",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
